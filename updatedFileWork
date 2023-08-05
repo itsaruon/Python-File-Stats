@@ -1,0 +1,44 @@
+def fileWork(file_name):
+    try:
+        with open(file_name, 'r') as file:
+            lines = file.readlines()
+    except FileNotFoundError:
+        print("Error: File not found.")
+        return
+
+    negative_count = 0
+    odd_count = 0
+    negative_sum = 0
+    positive_sum = 0
+    positive_count = 0
+
+    for line in lines:
+        elements = line.split(' ')
+        if len(elements) != 2:
+            print(f"Error: Invalid data format in line '{line.strip()}'. Skipping the line.")
+            continue
+
+        try:
+            num = int(elements[1])
+        except ValueError:
+            print(f"Error: Invalid number '{elements[1]}' in line '{line.strip()}'. Skipping the line.")
+            continue
+
+        if num < 0:
+            negative_sum += num
+            negative_count += 1
+        else:
+            positive_sum += num
+            positive_count += 1
+
+        if num % 2 == 1:
+            odd_count += 1
+
+    print("Negative count =", negative_count)
+    print("Odd count =", odd_count)
+    print("Negative sum =", negative_sum)
+    if positive_count > 0:
+        print("Positive average =", positive_sum / positive_count)
+
+file_name = 'file.txt'
+fileWork(file_name)
